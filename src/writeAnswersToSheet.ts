@@ -1,10 +1,10 @@
-import { getAvgAnswers } from './getAvgAnswers';
-import { AnswersParseResult } from './parseFormAnswers';
+import { DiscAnswersParseResult } from './parseDiscFormAnswers';
+import { getDiscAvgAnswers } from './utils';
 
 export function writeAnswersToSheet({
   dsAnswers,
   questions,
-}: AnswersParseResult) {
+}: DiscAnswersParseResult) {
   const statSheet = SpreadsheetApp.getActive().getSheetByName('Статистика')!;
   statSheet.getRange('A:Z').clearContent();
 
@@ -19,7 +19,7 @@ export function writeAnswersToSheet({
   statSheet.getRange(1, 1).setValue('Наименование дисциплины');
   statSheet.getRange(1, 2, 1, questions.length).setValues([questions]);
 
-  const avgAnswers = getAvgAnswers(dsAnswers);
+  const avgAnswers = getDiscAvgAnswers(dsAnswers);
 
   const discs = Object.keys(dsAnswers).sort();
 
